@@ -12,7 +12,7 @@ install_deps = [
     "torch>=1.6",
     "opencv-python-headless",
     "fastremap",
-    "imagecodecs",
+    "imagecodecs-lite",
     "roifile",
 ]
 
