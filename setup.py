@@ -1,44 +1,50 @@
 import setuptools
 from setuptools import setup
 
-install_deps = ['numpy>=1.20.0', 'scipy', 'natsort',
-                'tifffile', 'tqdm', 
-                'numba>=0.53.0', 
-                'llvmlite',
-                'torch>=1.6',
-                'opencv-python-headless',
-                'fastremap',
-                'imagecodecs',
-                'roifile',
-                ]
+install_deps = [
+    "numpy>=1.20.0",
+    "scipy",
+    "natsort",
+    "tifffile",
+    "tqdm",
+    "numba>=0.53.0",
+    "llvmlite",
+    "torch>=1.6",
+    "opencv-python-headless",
+    "fastremap",
+    "imagecodecs",
+    "roifile",
+]
 
 gui_deps = [
-        'pyqtgraph>=0.11.0rc0', 
-        "pyqt6",
-        "pyqt6.sip",
-        'qtpy',
-        'superqt',
-        'google-cloud-storage'
+    "pyqtgraph>=0.11.0rc0",
+    "pyqt6",
+    "pyqt6.sip",
+    "qtpy",
+    "superqt",
+    "google-cloud-storage",
 ]
 
 docs_deps = [
-        'sphinx>=3.0',
-        'sphinxcontrib-apidoc',
-        'sphinx_rtd_theme',
-        'sphinx-argparse',
+    "sphinx>=3.0",
+    "sphinxcontrib-apidoc",
+    "sphinx_rtd_theme",
+    "sphinx-argparse",
 ]
 
 distributed_deps = [
-        'dask',
-        'dask_image',
-        'scikit-learn',
+    "dask",
+    "dask_image",
+    "scikit-learn",
 ]
 
 try:
     import torch
+
     a = torch.ones(2, 3)
-    from importlib.metadata import version  
-    ver = version("torch")  
+    from importlib.metadata import version
+
+    ver = version("torch")
     major_version, minor_version, _ = ver.split(".")
     if major_version == "2" or int(minor_version) >= 6:
         install_deps.remove("torch>=1.6")
@@ -47,6 +53,7 @@ except:
 
 try:
     import PyQt5
+
     gui_deps.remove("pyqt6")
     gui_deps.remove("pyqt6.sip")
     gui_deps.append("pyqt5")
@@ -56,6 +63,7 @@ except:
 
 try:
     import PySide2
+
     gui_deps.remove("pyqt6")
     gui_deps.remove("pyqt6.sip")
 except:
@@ -63,6 +71,7 @@ except:
 
 try:
     import PySide6
+
     gui_deps.remove("pyqt6")
     gui_deps.remove("pyqt6.sip")
 except:
@@ -70,8 +79,8 @@ except:
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
-    
-    
+
+
 setup(
     name="cellpose",
     license="BSD",
@@ -82,20 +91,17 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/MouseLand/cellpose",
     setup_requires=[
-      'pytest-runner',
-      'setuptools_scm',
+        "setuptools_scm",
     ],
     packages=setuptools.find_packages(),
     use_scm_version=True,
-    install_requires = install_deps,
-    tests_require=[
-      'pytest'
-    ],
-    extras_require = {
-      'docs': docs_deps,
-      'gui': gui_deps,
-      'distributed': distributed_deps,
-      'all': gui_deps + distributed_deps,
+    install_requires=install_deps,
+    tests_require=["pytest"],
+    extras_require={
+        "docs": docs_deps,
+        "gui": gui_deps,
+        "distributed": distributed_deps,
+        "all": gui_deps + distributed_deps,
     },
     include_package_data=True,
     classifiers=(
@@ -103,8 +109,5 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
     ),
-     entry_points = {
-        'console_scripts': [
-          'cellpose = cellpose.__main__:main']
-     }
+    entry_points={"console_scripts": ["cellpose = cellpose.__main__:main"]},
 )
